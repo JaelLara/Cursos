@@ -1,0 +1,416 @@
+/* Estructura Base */
+
+a
+{
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+ul, li
+{
+	list-style: none;
+}
+
+header, section, footer, nav, aside 
+{ 
+	display:block;
+}
+
+footer
+{
+	clear: both;
+	text-align: center;
+}
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, form, input, textarea, select, a, blockquote
+{ 
+	font-family:Trebuchet MS, Arial, Helvetica, sans-serif;  
+	margin:0; 
+	padding:0;
+	border:0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline; 
+}
+
+h1, h2
+{ 
+	font-family:Trebuchet MS, Arial, Helvetica, sans-serif; 
+	text-shadow:0 -0px 2px #737373;  
+	color:#000;  
+}
+
+h1 
+{
+	font-size:35px; 
+	font-weight:normal; 
+	color: #FFFFFF;
+	text-shadow:0px 10px 3px #000000;
+} 
+
+h2 
+{ 
+	font-size:18px; 
+	font-weight:normal; 
+	background: url(../imagenes/box_bg2.png) repeat 0 0; 
+	padding:5px 10px; 
+	-moz-border-radius: 5px; 
+	-webkit-border-radius:5px; 
+	border-radius: 5px; 
+} 
+
+body
+{ 
+	font-size:14px; 
+	color:#FFF; 
+	text-shadow:0 1px 0 #000; 
+	background:#000 url(../imagenes/body_bg_new.jpg) repeat fixed center top
+}
+
+/*Estructura de classes*/
+
+.contenedor
+{
+	background: none;
+	display: block;
+	margin: 0 auto;
+	clear: both;
+	padding: 0 160px;
+	width: 1000px;
+}
+
+.subNavegador
+{
+	float:right;
+	clear:left;
+	color:#FFFFFF;
+	background: url(../imagenes/box_bg.png);
+	border-radius: 5px;
+	-moz-border-radius:5px;
+    -webkit-border:5px;
+    border-radius:5px;
+	top:-3px;	
+	position:relative;
+}
+
+.subNavegador ul li
+{
+	clear:right;
+	float: left;
+	line-height:30px; 
+	margin:0; 
+	padding:0;	
+}
+
+.subNavegador ul li a
+{
+	display: inline-block;
+	padding: 0px 15px;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+.subNavegador ul li a:hover
+{
+	background: url(../imagenes/box_bg2.png) repeat 0 0;
+}
+
+.subNavegador ul li a span{
+	position:relative;
+	top: -2px;
+	font-size: 10px;
+}
+
+header
+{
+	clear:both;
+	text-align: center;
+}
+
+.principal
+{
+	clear: both;
+	width:100%;
+	float:left;
+	background: url(../imagenes/box_bg.png);
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    margin-bottom: 8px;
+    margin-right: 5px;
+    margin-top: 8px;
+	
+}
+
+.principal ul li
+{
+	float:left;
+	line-height:35px;
+	height: 35px; 
+	margin:0; 
+	border-right: solid 1px #1d1c1c;
+	
+}
+
+.elemento
+{
+	padding:10px;
+}
+
+#primero
+{
+	margin-left: 8px;
+}
+
+.principal ul li a
+{
+	text-decoration: none;
+	display:inline;
+	text-shadow:0 -1px 2px #737373;
+	color:#000; 
+	-webkit-transition:All 0.50s ease; 
+	-moz-transition:All 1s ease;
+	-o-transition:All 1s ease;
+}
+
+.principal ul li a:hover
+{
+	background: url(../imagenes/box_bg2.png) repeat;
+	background-color: rgba(0, 0, 0, 0.3);
+	color:#FFFFFF;
+}
+
+.izquierda, .centrado, .derecha, .superior, .inferior
+{
+	float:left;
+	-moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+}
+
+.superior, .inferior{
+	background: url(../imagenes/box_bg.png) repeat 0 0;
+	clear:left;
+	width:100%;
+	height: 260px;
+}
+
+.superior
+{
+	margin-bottom: 10px;	
+}
+
+.centrado
+{
+	margin: 0 10px;
+	width: 415px
+}
+
+.izquierda,.derecha
+{
+	width: 282px;
+}
+
+
+#compatibilidad ul li
+{
+	display: block;
+	float: left;
+	width: 48px;
+	padding-top: 55px;
+	background:url(../imagenes/icon.png) no-repeat left top;
+	margin:0 12px; 
+	text-align:center; 
+	font-size:14px; 
+	font-weight:bold; 
+	color:#FFF;  
+	text-indent:0;
+}
+
+.navegadores
+{
+	margin-bottom: 80px;	
+}
+
+#compatibilidad ul li.firefox
+{ 
+	background-position:-293px 0;
+}
+
+#compatibilidad ul li.ie
+{ 
+	background-position:0 0;
+}
+
+#compatibilidad ul li.safari
+{
+	background-position:-71px 0;
+}
+
+#compatibilidad ul li.opera
+{
+	background-position:-219px 0;
+}
+
+#compatibilidad ul li.chrome
+{ 
+	background-position:-141px 0;
+}
+
+#compatibilidad ul li.ios
+{ 
+	background-position:-438px 0;
+}
+
+#compatibilidad ul li.blackberry
+{ 
+	background-position:-350px 0;
+}
+
+.navegadores
+{
+	padding:10px 5px 10px 5px;
+}
+
+.derecha .superior ul li
+{
+	border-bottom: solid 1px #000000;
+	padding-top: 5px;
+}
+
+.derecha .superior ul
+{
+	margin-top: 10px;
+}
+
+.derecha .superior ul li p
+{
+	margin-left: 15px;
+	padding-bottom: 5px;
+}
+
+.derecha .superior h2 a
+{
+	margin-left: 70px;
+	font-size: 12px;
+	background: url(../imagenes/banner.png) repeat 0 0;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding: 4px;
+}
+
+#sugerencia, #enviar
+{
+	width: 100%;
+	display: block;
+	margin-left: 15px; 
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.formulario
+{	
+	
+	margin-top: 15px;
+	margin-right: 30px;
+}
+
+.formulario li input, textarea
+{
+	background: url(../imagenes/banner.png) repeat 0 0;
+	color: #FFFFFF;
+}
+
+.imagenCss
+{
+	width:auto;
+	height:229px;
+	background: url(../imagenes/css3.jpg) no-repeat 0 0;
+	-moz-border-radius: 0px 0px 5px 5px;
+    -webkit-border-radius: 0px 0px 5px 5px;
+    border-radius: 0px 0px 5px 5px;
+    background-position:-80px -20px;
+    text-indent: -9999px;
+}
+
+.imagenHtml
+{
+	width:auto;
+	height:210px;
+	background: url(../imagenes/html5.png) no-repeat 0 0;
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    text-indent: -9999px;
+    background-position: 10px -43px;
+}
+
+
+a.social 
+{
+    width:55px;
+    height:55px;
+    float:left;
+    font-size:0;
+    text-decoration:none;
+    text-indent:-9999px;
+    margin:0 10px 0 0; 
+    outline:none;
+    display:block; 
+    position:relative;
+    padding:0;
+    
+}
+
+a.social:hover 
+{ 
+    background-color: transparent; 
+    -webkit-border-radius: 0; 
+    -moz-border-radius: 0; 
+    border-radius: 0;
+}
+
+a.social img 
+{
+    width:100%; 
+    height: auto; 
+    display:block; 
+    border: none;
+}
+
+a.social  img.rollover 
+{ 
+    position:absolute; 
+    top:0; 
+    left:0; 
+    opacity:0;
+}
+
+a.social:hover img.rollover 
+{
+    opacity:1;
+}
+
+a.social:hover img.rollout 
+{
+    opacity:0;
+}
+
+
+ul.personal
+{
+	margin-bottom: 40px;
+	margin-top: 10px;
+}
+
+ul.personal li
+{
+	background: url(../imagenes/banner.png) repeat 0 0;
+	color: #FFFFFF;
+	margin: 10px;
+	webkit-border-radius: 5px; 
+    -moz-border-radius: 5px; 
+    border-radius: 5px;
+}
