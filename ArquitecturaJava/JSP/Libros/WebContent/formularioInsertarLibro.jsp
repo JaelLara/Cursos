@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List"%>
+<%@ page import="com.arquitecturajava.Libro"%>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html
 PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -33,8 +36,18 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 					name="titulo" />
 			</p>
 			<p>
-				<label for="categoria">Categoria :</label> <input id="categoria"
-					type="text" name="categoria" />
+			<select name="categoria">
+		<%
+		List<String> listaDeCategoria = null;
+		listaDeCategoria = Libro.buscarTodasLasCategorias();
+		
+		for(String categoria:listaDeCategoria){
+			%>
+				<option value="<%=categoria%>"><%=categoria%></option>
+			<%
+		}
+		%>
+		</select>
 			</p>
 			<p>
 				<input type="submit" value="aceptar" />
