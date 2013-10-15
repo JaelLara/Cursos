@@ -14,30 +14,42 @@
 	</head>
 	<body>
 
-		<select name="categoria">
-		<%
-		List<String> listaDeCategoria = null;
-		listaDeCategoria = Libro.buscarTodasLasCategorias();
+		<form name="filtroCategoria">
+<select name="categoria">
+<option value="seleccionar">seleccionar</option>
+
+<% 
+	List<String> listaDeCategorias=null;
+	listaDeCategorias=Libro.buscarTodasLasCategorias();
+		 
+	 for(String categoria:listaDeCategorias) { %>
+	 
+	   <option value="<%=categoria%>"><%=categoria%></option>
 		
-		for(String categoria:listaDeCategoria){
-			%>
-				<option value="<%=categoria%>"><%=categoria%></option>
-			<%
-		}
-		%>
-		</select>
-		<br/>
+ 	<% } %>
+ 	
+	</select>
+<input type="submit" value="filtrar">
+
+</form>
+	<br/>
 		<%	
-	
 			List<Libro> listaDeLibros = null;
-			listaDeLibros = Libro.buscarTodos();
+			if (request.getParameter("categoria") == null || request.getParameter("categoria").equals("seleccionar")){
+				listaDeLibros = Libro.buscarTodos();
+			}
+			else{
+				listaDeLibros = Libro.buscarPorCategoria(request.getParameter("categoria"));
+			}
 			for(Libro libro:listaDeLibros){%>
 	
 				<%=libro.getIsbn()%>
 				<%=libro.getTitulo()%>
 				<%=libro.getCategoria()%>
-				
+				<a href="borrarLibro.jsp?isbn=<%=libro.getIsbn() %>">Borrar</a>
+				<a href="formularioEditarLibro.jsp?isbn=<%=libro.getIsbn() %>">Editar</a>
 				<br />
+				
 			
 			<%}%>
 		<a href="formularioInsertarLibro.jsp">Insertar Libro</a>
