@@ -1,5 +1,7 @@
 package com.arquitecturajava;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.lang.reflect.Method;
 
 public class DataBaseHelper<T> {
 
@@ -16,79 +17,133 @@ public class DataBaseHelper<T> {
 	private static final String USUARIO = "root";
 	private static final String CLAVE = "root";
 
-	public DataBaseHelper() {
-	}
-	
-	public int modificarRegistro(String consultaSQL) {
+	public int modificarRegistro(String consultaSQL)  {
+
 		Connection conexion = null;
 		Statement sentencia = null;
+
 		int filasAfectadas = 0;
 
 		try {
+
 			Class.forName(DRIVER);
+
 			conexion = DriverManager.getConnection(URL, USUARIO, CLAVE);
+
 			sentencia = conexion.createStatement();
+
 			filasAfectadas = sentencia.executeUpdate(consultaSQL);
+
 		} catch (ClassNotFoundException e) {
-			System.out.println("Error driver" + e.getMessage());
+
+			System.out.println("Error de acceso al driver" + e.getMessage());
+			throw new DataBaseException("Error de SQL",e);
 		} catch (SQLException e) {
+
 			System.out.println("Error de SQL" + e.getMessage());
+			throw new DataBaseException("Error de SQL",e);
 		} finally {
+
 			if (sentencia != null) {
-				try {
-					sentencia.close();
-				} catch (SQLException e) {
-					System.out.println("Error cerrando la sentencia"
-							+ e.getMessage());
-				}
+
+				try {sentencia.close();} catch (SQLException e) {}
+				
 			}
 			if (conexion != null) {
-				try {
-					conexion.close();
-				} catch (SQLException e) {
-					System.out.println("Error cerrando la conexion"
-							+ e.getMessage());
-				}
+
+				try {conexion.close();} catch (SQLException e) {}
 			}
+
 		}
+
 		return filasAfectadas;
+
 	}
+
 	
-	public List<T> seleccionarRegistros(String consultaSQL, Class clase){
+	
+
+	
+	@SuppressWarnings("unchecked")
+	public List<T> seleccionarRegistros(String consultaSQL,Class<T> clase)   {
+
 		Connection conexion = null;
 		Statement sentencia = null;
 		ResultSet filas = null;
-		List<T> listaDeObjetos = new ArrayList<T>();
-		try {
-			Class.forName(DRIVER);
-			conexion = DriverManager.getConnection(URL, USUARIO, CLAVE);
-			sentencia = conexion.createStatement();
-			filas = sentencia.executeQuery(consultaSQL);
-			while(filas.next()){
-				T objeto = (T) Class.forName(clase.getName()).newInstance();
-				Method[] metodos = objeto.getClass().getDeclaredMethods();
-				for(int i = 0; i < metodos.length; i++){
-					if(metodos[i].getName().startsWith("set")){
-						metodos[i].invoke(objeto,
-								filas.getString(metodos[i].getName().substring(3)));
+		ArrayList<T> listaDeObjetos=new ArrayList<T>();
+		
+
+			try {
+				Class.forName(DRIVER);
+				conexion = DriverManager.getConnection(URL, USUARIO, CLAVE);
+				sentencia = conexion.createStatement();
+				filas = sentencia.executeQuery(consultaSQL);
+				
+				while (filas.next()) {
+
+					T objeto=(T) clase.newInstance();
+					
+							
+					Method[] metodos=objeto.getClass().getDeclaredMethods();
+					
+						for (int i=0;i<metodos.length;i++) {
+						
+
+						if (metodos[i].getName().startsWith("set") ) {
+							
+							metodos[i].invoke(objeto, filas.getString(metodos[i].getName().substring(3)));
+						}
+						
+						if (objeto.getClass().getName().equals("java.lang.String")) {
+							
+							objeto=(T)filas.getString(1);
+							
+						}
+						
+					
+						
 					}
-					if(objeto.getClass().getName().equals("java.lang.String")){
-						objeto = (T)filas.getString(1);
-					}
+					listaDeObjetos.add(objeto);
 				}
-				listaDeObjetos.add(objeto);
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw new DataBaseException("Error de seguridad",e);
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+				throw new DataBaseException("Error en el tipo de argumentos",e);
+	
+			} catch (ClassNotFoundException e) {
+				
+				e.printStackTrace();
+				throw new DataBaseException("Error no se encuentra la clase",e);
+		
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+			
+				throw new DataBaseException("Error de SQL",e);
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw new DataBaseException("Error de Instanciacion",e);
+			
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw new DataBaseException("Error de acceso",e);
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				throw new DataBaseException("Error de Invocacion",e);
+			
 			}
-		} catch (Exception e) {
-			System.out.println("Error al seleccionar registros" + e.getMessage());
-		}
-		finally {
-			if (sentencia != null) {
-				try {sentencia.close();} catch (SQLException e) {}
-			}
-			if (conexion != null) {
-				try {conexion.close();} catch (SQLException e) {}
-			}
-		}
+			
+		
 		return listaDeObjetos;
+
+	
 	}
-}
+	
+	
+
+
+	}

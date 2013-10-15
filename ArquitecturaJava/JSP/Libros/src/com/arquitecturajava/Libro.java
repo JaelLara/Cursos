@@ -1,5 +1,6 @@
 package com.arquitecturajava;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class Libro {
@@ -86,7 +87,7 @@ public class Libro {
 		return listaDeLibros.get(0);
 	}
 	
-	public void salvar(){
+	public void salvar() throws DataBaseException{
 		String consultaSQL = "update libros set titulo = '" + this.titulo + "',"
 				+ "categoria = '" + this.categoria + "' where isbn = '"+ this.isbn + "'";
 		
