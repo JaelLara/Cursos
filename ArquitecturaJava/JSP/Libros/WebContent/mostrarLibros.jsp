@@ -20,13 +20,15 @@
 
 <% 
 	List<String> listaDeCategorias=null;
-	listaDeCategorias=Libro.buscarTodasLasCategorias();
+	listaDeCategorias=(List<String>)request.getAttribute("listaDeCategorias");
 		 
-	 for(String categoria:listaDeCategorias) { %>
-	 
-	   <option value="<%=categoria%>"><%=categoria%></option>
-		
- 	<% } %>
+	for(String categoria:listaDeCategorias) {
+		if (categoria.equals(request.getParameter("categoria"))){
+		%>
+		<option value="<%=categoria%>" selected ><%=categoria%></option>
+		<% } else { %>
+		<option value="<%=categoria%>"><%=categoria%></option>
+		<%} }%>
  	
 	</select>
 <input type="submit" value="filtrar">
@@ -35,12 +37,7 @@
 	<br/>
 		<%	
 			List<Libro> listaDeLibros = null;
-			if (request.getParameter("categoria") == null || request.getParameter("categoria").equals("seleccionar")){
-				listaDeLibros = Libro.buscarTodos();
-			}
-			else{
-				listaDeLibros = Libro.buscarPorCategoria(request.getParameter("categoria"));
-			}
+			listaDeLibros = (List<Libro>)request.getAttribute("listaDeLibros");
 			for(Libro libro:listaDeLibros){%>
 	
 				<%=libro.getIsbn()%>
