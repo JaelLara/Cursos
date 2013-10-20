@@ -1,6 +1,5 @@
 package com.arquitecturajava;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class Libro {

@@ -10,12 +10,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 public class DataBaseHelper<T> {
 
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
 	private static final String URL = "jdbc:mysql://localhost/arquitecturajava";
 	private static final String USUARIO = "root";
 	private static final String CLAVE = "root";
+	
+	private static final Logger log = Logger.getLogger(DataBaseHelper.class.getPackage().getName());
 
 	public int modificarRegistro(String consultaSQL)  {
 
@@ -36,22 +40,26 @@ public class DataBaseHelper<T> {
 
 		} catch (ClassNotFoundException e) {
 
-			System.out.println("Error de acceso al driver" + e.getMessage());
+			log.error("Error de acceso al driver" + e.getMessage());
 			throw new DataBaseException("Error de SQL",e);
 		} catch (SQLException e) {
 
-			System.out.println("Error de SQL" + e.getMessage());
+			log.error("Error de SQL" + e.getMessage());
 			throw new DataBaseException("Error de SQL",e);
 		} finally {
 
 			if (sentencia != null) {
 
-				try {sentencia.close();} catch (SQLException e) {}
+				try {sentencia.close();} catch (SQLException e) {
+					log.error("Error con la sentencia" + e.getMessage());
+				}
 				
 			}
 			if (conexion != null) {
 
-				try {conexion.close();} catch (SQLException e) {}
+				try {conexion.close();} catch (SQLException e) {
+					log.error("Error cerrando la conexion" + e.getMessage());
+				}
 			}
 
 		}
@@ -106,7 +114,6 @@ public class DataBaseHelper<T> {
 					listaDeObjetos.add(objeto);
 				}
 			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				throw new DataBaseException("Error de seguridad",e);
 			} catch (IllegalArgumentException e) {
@@ -118,21 +125,16 @@ public class DataBaseHelper<T> {
 				e.printStackTrace();
 				throw new DataBaseException("Error no se encuentra la clase",e);
 		
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-			
+			} catch (SQLException e) {			
 				throw new DataBaseException("Error de SQL",e);
 			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				throw new DataBaseException("Error de Instanciacion",e);
 			
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				throw new DataBaseException("Error de acceso",e);
 			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
 				throw new DataBaseException("Error de Invocacion",e);
 			
 			}
