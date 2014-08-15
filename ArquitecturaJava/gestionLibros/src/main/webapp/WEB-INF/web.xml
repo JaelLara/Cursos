@@ -4,6 +4,6 @@
   
   <!-- Pagina de inicio de la aplicación -->
   <welcome-file-list>
-    <welcome-file>InsertarLibro.html</welcome-file>
+    <welcome-file>MostrarLibros.jsp</welcome-file>
   </welcome-file-list>
 </web-app>
